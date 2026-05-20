@@ -1,0 +1,12 @@
+[
+  {
+    "message": "Welcome to SleepOutside! Check out our latest deals on tents.",
+    "background": "darkblue",
+    "color": "white"
+  },
+  {
+    "message": "Free shipping on orders over $150!",
+    "background": "darkgreen",
+    "color": "white"
+  }
+]

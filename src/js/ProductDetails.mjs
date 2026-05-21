@@ -40,7 +40,7 @@ export default class ProductDetails {
       `$${this.product.FinalPrice}`;
 
     document.getElementById('productImage').src =
-      this.product.Image;
+      this.product.Images.PrimaryLarge;
 
     document.getElementById('productImage').alt =
       this.product.Name;

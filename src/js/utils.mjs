@@ -27,16 +27,43 @@ export function setClick(selector, callback) {
     event.preventDefault();
     callback();
   });
+
   qs(selector).addEventListener('click', callback);
 }
 
 // renders a list of items to the DOM using a template function
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = 'afterbegin',
+  clear = false,
+) {
   if (clear) {
-    parentElement.innerHTML = "";
+    parentElement.innerHTML = '';
   }
-  // run each item in the list through the template function to get HTML strings
+
   const htmlStrings = list.map(templateFn);
-  // insert all the HTML strings into the parent element
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+
+  parentElement.insertAdjacentHTML(
+    position,
+    htmlStrings.join(''),
+  );
+}
+
+// loads header and footer
+export async function loadHeaderFooter() {
+  const header = await fetch('/partials/header.html');
+
+  const footer = await fetch('/partials/footer.html');
+
+  const headerText = await header.text();
+
+  const footerText = await footer.text();
+
+  document.querySelector('#main-header').innerHTML =
+    headerText;
+
+  document.querySelector('#main-footer').innerHTML =
+    footerText;
 }

@@ -46,6 +46,16 @@ export default class ProductDetails {
       this.product.Name;
 
     document.getElementById('productDescription').innerHTML =
-      this.product.DescriptionHtmlSimple;
+      this.product.DescriptionHtmlSimple;  
+    
+    // calculate the discount
+    const discount = this.product.SuggestedRetailPrice - this.product.FinalPrice;
+
+    // only show the flag if there is a discount
+    if (discount > 0) {
+      const discountFlag = document.getElementById('discountFlag');
+      discountFlag.textContent = `Save $${discount.toFixed(2)}!`;
+      discountFlag.style.display = 'block';
+    }
   }
 }

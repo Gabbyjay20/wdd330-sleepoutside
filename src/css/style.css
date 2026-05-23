@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -272,4 +272,33 @@ footer {
   padding: 1rem;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.categories img {
+  width: 80px;
+  height: 80px;
+}
+
+.categories p {
+  text-align: center;
+}
+
+.discount-flag {
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+main {
+  flex: 1;
 }

@@ -1,4 +1,4 @@
-// wrapper for querySelector...returns matching element
+// wrapper for querySelector
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
@@ -16,22 +16,29 @@ export function setLocalStorage(key, data) {
 // get URL parameter
 export function getParam(param) {
   const queryString = window.location.search;
+
   const urlParams = new URLSearchParams(queryString);
 
   return urlParams.get(param);
 }
 
-// set a listener for both touchend and click
+// click listener
 export function setClick(selector, callback) {
-  qs(selector).addEventListener('touchend', (event) => {
-    event.preventDefault();
-    callback();
-  });
+  qs(selector).addEventListener(
+    'touchend',
+    (event) => {
+      event.preventDefault();
+      callback();
+    },
+  );
 
-  qs(selector).addEventListener('click', callback);
+  qs(selector).addEventListener(
+    'click',
+    callback,
+  );
 }
 
-// renders a list of items to the DOM using a template function
+// render list with template
 export function renderListWithTemplate(
   templateFn,
   parentElement,
@@ -51,19 +58,51 @@ export function renderListWithTemplate(
   );
 }
 
-// loads header and footer
-export async function loadHeaderFooter() {
-  const header = await fetch('/partials/header.html');
+// update cart count
+export function updateCartCount() {
+  let cartItems =
+    getLocalStorage('so-cart') || [];
 
-  const footer = await fetch('/partials/footer.html');
+  if (!Array.isArray(cartItems)) {
+    cartItems = [];
+  }
+
+  const countElement =
+    document.querySelector('#cart-count');
+
+  if (countElement) {
+    countElement.textContent =
+      cartItems.length;
+  }
+}
+
+// load header/footer
+export async function loadHeaderFooter() {
+  const header = await fetch(
+    '/partials/header.html',
+  );
+
+  const footer = await fetch(
+    '/partials/footer.html',
+  );
 
   const headerText = await header.text();
 
   const footerText = await footer.text();
 
-  document.querySelector('#main-header').innerHTML =
-    headerText;
+  const mainHeader =
+    document.querySelector('#main-header');
 
-  document.querySelector('#main-footer').innerHTML =
-    footerText;
+  const mainFooter =
+    document.querySelector('#main-footer');
+
+  if (mainHeader) {
+    mainHeader.innerHTML = headerText;
+  }
+
+  if (mainFooter) {
+    mainFooter.innerHTML = footerText;
+  }
+
+  updateCartCount();
 }

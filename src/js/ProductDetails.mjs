@@ -1,4 +1,8 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import {
+  getLocalStorage,
+  setLocalStorage,
+  updateCartCount,
+} from './utils.mjs';
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -8,9 +12,7 @@ export default class ProductDetails {
   }
 
   async init() {
-    this.product = await this.dataSource.findProductById(
-      this.productId
-    );
+    this.product = await this.dataSource.findProductById(this.productId);
 
     this.renderProductDetails();
 
@@ -21,8 +23,16 @@ export default class ProductDetails {
 
   addProductToCart(product) {
     let cartItems = getLocalStorage('so-cart') || [];
+
+    if (!Array.isArray(cartItems)) {
+      cartItems = [];
+    }
+
     cartItems.push(product);
     setLocalStorage('so-cart', cartItems);
+    updateCartCount();
+
+    alert('Item added to cart');
   }
 
   addToCart() {
@@ -30,32 +40,15 @@ export default class ProductDetails {
   }
 
   renderProductDetails() {
-    document.getElementById('productName').textContent =
-      this.product.Name;
-
+    document.getElementById('productName').textContent = this.product.Name;
     document.getElementById('productBrand').textContent =
       this.product.Brand.Name;
-
     document.getElementById('productPrice').textContent =
       `$${this.product.FinalPrice}`;
-
     document.getElementById('productImage').src =
-      this.product.Images.PrimaryLarge;
-
-    document.getElementById('productImage').alt =
-      this.product.Name;
-
+      this.product.Images?.PrimaryLarge || this.product.Image;
+    document.getElementById('productImage').alt = this.product.Name;
     document.getElementById('productDescription').innerHTML =
-      this.product.DescriptionHtmlSimple;  
-    
-    // calculate the discount
-    const discount = this.product.SuggestedRetailPrice - this.product.FinalPrice;
-
-    // only show the flag if there is a discount
-    if (discount > 0) {
-      const discountFlag = document.getElementById('discountFlag');
-      discountFlag.textContent = `Save $${discount.toFixed(2)}!`;
-      discountFlag.style.display = 'block';
-    }
+      this.product.DescriptionHtmlSimple;
   }
 }

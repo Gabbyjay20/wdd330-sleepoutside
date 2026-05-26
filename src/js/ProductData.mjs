@@ -25,3 +25,4 @@ export default class ProductData {
     return data.Result;
   }
 }
+console.log('BASE URL:', baseURL);

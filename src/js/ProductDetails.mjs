@@ -50,5 +50,13 @@ export default class ProductDetails {
     document.getElementById('productImage').alt = this.product.Name;
     document.getElementById('productDescription').innerHTML =
       this.product.DescriptionHtmlSimple;
+
+    // calculate and show discount flag
+    const discount = this.product.SuggestedRetailPrice - this.product.FinalPrice;
+    if (discount > 0) {
+      const discountFlag = document.getElementById('discountFlag');
+      discountFlag.textContent = `Save $${discount.toFixed(2)}!`;
+      discountFlag.style.display = 'block';
+    }
   }
 }

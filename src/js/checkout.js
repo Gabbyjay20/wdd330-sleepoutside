@@ -8,17 +8,15 @@ const myCheckout = new CheckoutProcess();
 // Initialize checkout totals
 myCheckout.init();
 
-document
-  .querySelector('#checkoutSubmit')
-  .addEventListener('click', (e) => {
-    e.preventDefault();
+document.querySelector('#checkoutSubmit').addEventListener('click', (e) => {
+  e.preventDefault();
 
-    const myForm = document.querySelector('#checkoutForm');
+  const myForm = document.querySelector('#checkoutForm');
 
-    if (!myForm.checkValidity()) {
-      myForm.reportValidity();
-      return;
-    }
+  if (!myForm.checkValidity()) {
+    myForm.reportValidity();
+    return;
+  }
 
-    myCheckout.checkout();
-  });
+  myCheckout.checkout();
+});

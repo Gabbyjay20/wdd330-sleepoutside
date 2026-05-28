@@ -250,6 +250,16 @@ button {
   grid-column: 3;
 }
 
+.cart-card__remove {
+  grid-row: 1;
+  grid-column: 3;
+  justify-self: end;
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
 /* FOOTER */
 
 footer {

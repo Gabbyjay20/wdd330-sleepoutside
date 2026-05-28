@@ -1,6 +1,8 @@
 import {
   getLocalStorage,
+  setLocalStorage,
   loadHeaderFooter,
+  updateCartCount,
 } from './utils.mjs';
 
 loadHeaderFooter();
@@ -61,7 +63,31 @@ function cartItemTemplate(item) {
     <p class="cart-card__color">${color}</p>
     <p class="cart-card__quantity">qty: 1</p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
+    <span class="cart-card__remove" data-id="${item.Id}">X</span>
   </li>`;
 }
+
+function removeFromCart(e) {
+  if (!e.target.classList.contains('cart-card__remove')) return;
+
+  const id = e.target.dataset.id;
+  let cartItems = getLocalStorage('so-cart') || [];
+
+  if (!Array.isArray(cartItems)) {
+    cartItems = [cartItems];
+  }
+
+  const index = cartItems.findIndex((item) => item.Id === id);
+  if (index > -1) {
+    cartItems.splice(index, 1);
+  }
+
+  setLocalStorage('so-cart', cartItems);
+  renderCartContents();
+  updateCartCount();
+}
+
+document.querySelector('.product-list')
+  .addEventListener('click', removeFromCart);
 
 renderCartContents();

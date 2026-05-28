@@ -25,14 +25,14 @@ export default class Alert {
     section.className = 'alert-list';
 
     alerts.forEach((alert) => {
-      const p = document.createElement("p");
+      const p = document.createElement('p');
       p.textContent = alert.message;
       p.style.backgroundColor = alert.background;
       p.style.color = alert.color;
       section.appendChild(p);
     });
 
-    const main = document.querySelector("main");
+    const main = document.querySelector('main');
     main.prepend(section);
   }
 }

@@ -1,6 +1,6 @@
 export default class Alert {
   constructor() {
-    this.path = "/json/alerts.json";
+    this.path = '/json/alerts.json';
   }
 
   async init() {
@@ -21,8 +21,8 @@ export default class Alert {
   }
 
   renderAlerts(alerts) {
-    const section = document.createElement("section");
-    section.className = "alert-list";
+    const section = document.createElement('section');
+    section.className = 'alert-list';
 
     alerts.forEach((alert) => {
       const p = document.createElement("p");

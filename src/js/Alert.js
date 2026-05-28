@@ -1,6 +1,6 @@
 export default class Alert {
   constructor() {
-    this.path = "/json/alerts.json";
+    this.path = '/json/alerts.json';
   }
 
   async init() {
@@ -21,18 +21,18 @@ export default class Alert {
   }
 
   renderAlerts(alerts) {
-    const section = document.createElement("section");
-    section.className = "alert-list";
+    const section = document.createElement('section');
+    section.className = 'alert-list';
 
     alerts.forEach((alert) => {
-      const p = document.createElement("p");
+      const p = document.createElement('p');
       p.textContent = alert.message;
       p.style.backgroundColor = alert.background;
       p.style.color = alert.color;
       section.appendChild(p);
     });
 
-    const main = document.querySelector("main");
+    const main = document.querySelector('main');
     main.prepend(section);
   }
 }

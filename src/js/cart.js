@@ -10,9 +10,9 @@ loadHeaderFooter();
 function renderCartContents() {
   let cartItems = getLocalStorage('so-cart') || [];
 
-if (!Array.isArray(cartItems)) {
-  cartItems = [cartItems];
-}
+  if (!Array.isArray(cartItems)) {
+    cartItems = [cartItems];
+  }
 
   if (cartItems.length === 0) {
     document.querySelector('.product-list').innerHTML =
@@ -20,17 +20,11 @@ if (!Array.isArray(cartItems)) {
     return;
   }
 
-  const htmlItems = cartItems.map((item) =>
-    cartItemTemplate(item),
-  );
+  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
 
-  document.querySelector('.product-list').innerHTML =
-    htmlItems.join('');
+  document.querySelector('.product-list').innerHTML = htmlItems.join('');
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.FinalPrice,
-    0,
-  );
+  const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
 
   const cartFooter = document.querySelector('.cart-footer');
 
@@ -41,17 +35,14 @@ if (!Array.isArray(cartItems)) {
   const cartTotal = document.querySelector('.cart-total');
 
   if (cartTotal) {
-    cartTotal.innerHTML =
-      `Total: $${total.toFixed(2)}`;
+    cartTotal.innerHTML = `Total: $${total.toFixed(2)}`;
   }
 }
 
 function cartItemTemplate(item) {
-  const image =
-    item.Images?.PrimaryMedium || item.Image;
+  const image = item.Images?.PrimaryMedium || item.Image;
 
-  const color =
-    item.Colors?.[0]?.ColorName || '';
+  const color = item.Colors?.[0]?.ColorName || '';
 
   return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
@@ -87,7 +78,8 @@ function removeFromCart(e) {
   updateCartCount();
 }
 
-document.querySelector('.product-list')
+document
+  .querySelector('.product-list')
   .addEventListener('click', removeFromCart);
 
 renderCartContents();
